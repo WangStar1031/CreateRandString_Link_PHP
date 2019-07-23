@@ -29,7 +29,10 @@ if( isset($_POST['deleteLink'])){
 	}
 	header("Location: create.php");
 }
-$urlPrefix = $_SERVER['REMOTE_ADDR'] . dirname( $_SERVER['REQUEST_URI']);
+$urlPrefix = $_SERVER['HTTP_HOST'] . dirname( $_SERVER['REQUEST_URI']);
+if( substr($urlPrefix, -1) != "/"){
+    $urlPrefix .= "/";
+}
 ?>
 
 <table>
@@ -38,7 +41,7 @@ $urlPrefix = $_SERVER['REMOTE_ADDR'] . dirname( $_SERVER['REQUEST_URI']);
 		if( $value == "")continue;
 		?>
 		<tr>
-			<td><?=$urlPrefix . '/?id=' . $value?></td>
+			<td><?=$urlPrefix . '?id=' . $value?></td>
 			<td onclick="deleteClicked('<?=$value?>')"><button>Delete</button></td>
 		</tr>
 		<?php
